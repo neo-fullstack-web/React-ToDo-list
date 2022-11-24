@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import FormTareas from "./components/FormTareas";
+import Subtitulo from "./components/Subtitulo";
+import Titulo from "./components/Titulo";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
+//Fuera del return va la logica de javaScript
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+//Debe tener un div padre para que se pueda leer el hmtl o podemos dejar sin contenedor padre. Ej: return(<h1>Lista de tareas</h1>)
+
+    <div className="bg-warning m-5 p-5">
+      <Titulo/>
+      <Subtitulo/>
+      <FormTareas/>
     </div>
   );
 }
