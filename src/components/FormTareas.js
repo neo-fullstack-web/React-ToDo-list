@@ -1,25 +1,37 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-const FormTareas = () => {
-    return (
-        <div>
-            <Form>
-                <Form.Group className="mb-3 w-50" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
+const FormTareas = (props) => {
 
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
+  function cargarTarea(e) {
+    e.preventDefault();
+    console.log(e.target.elements.taskDetail);
+
+
+    const newTask = {
+      id: Date.now(),
+      detail: e.target.elements.taskDetail.value,
+      done: false
+    }
+
+    props.agregarNuevaTareaDesdeHijo(newTask)
+  }
+
+  return (
+    <div>
+            <Form onSubmit={cargarTarea}>
+              <Form.Group className="mb-3" controlId="taskDetail">
+                <Form.Label>Ingrese tarea a realizar</Form.Label>
+                <Form.Control type="text" placeholder="Detalle de la tarea" />
+              </Form.Group>
+
+              <Button variant="primary" type="submit">
+                Agregar
+              </Button>
             </Form>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default FormTareas;
