@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 export const Sidebar = () => {
   return (
     <>
-      <ul class="list-group main-sidebar">
+      <ul className="list-group main-sidebar">
         
           <NavLink to="/" className={({isActive}) => isActive ? `list-group-item link-active` : 'list-group-item'}>
             Home
