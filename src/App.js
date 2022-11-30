@@ -1,66 +1,40 @@
-import FormTareas from "./components/FormTareas";
-import Subtitulo from "./components/Subtitulo";
-import Titulo from "./components/Titulo";
-import "bootstrap/dist/css/bootstrap.min.css"
-import { Col, Container, Row } from "react-bootstrap";
-import { TaskList } from "./components/TaskList/TaskList";
-import { useState } from "react";
 
-const taskListConst = JSON.parse(localStorage.getItem('tasks')) || [];
-// [
-//   { detail: 'Lavar la ropa', id: 1001, done: true },
-//   { detail: 'Limpiar la habitación', id: 1002, done: false },
-//   { detail: 'Darle de comer a la gatita', id: 1003, done: false },
-//   { detail: 'Limpiar el auto', id: 1004, done: true },
-//   { detail: 'Cocinar la comida de mañana', id: 1005, done: false },
-// ]
+import "bootstrap/dist/css/bootstrap.min.css"
+
+import { Header } from "./layout/Header/Header";
+import { Sidebar } from "./layout/Sidebar/Sidebar";
+import { Footer } from "./layout/Footer/Footer";
+import './index.css';
+import { ToDoList } from "./pages/ToDoList/ToDoList";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home/Home";
+import { Contact } from "./pages/Contact/Contact";
+import { About } from "./pages/About/About";
+import { NotFound } from "./pages/NotFound/NotFound";
 
 function App() {
-//Fuera del return va la logica de javaScript
-const [taskList, setTaskList] = useState(taskListConst);
-
-
-function addNewTask(task) {
-  const updList = taskList.map(t => t)
-  updList.push(task);
-  localStorage.setItem('tasks', JSON.stringify(updList))
-  setTaskList(updList)
-  // setTaskList([...taskList, task])
-}
-
-function deleteTask(idx) {
-  const arrayWithoutDeletedTask = taskList.filter(tarea => tarea.id !== idx);
-  localStorage.setItem('tasks', JSON.stringify(arrayWithoutDeletedTask))
-  setTaskList(arrayWithoutDeletedTask)
-}
-
-function setTaskDone(id) {
-  const taskUpd = taskList.find(tarea => tarea.id === id);
-  taskUpd.done = true;
-  setTaskList([...taskList])
-}
 
   return (
 //Debe tener un div padre para que se pueda leer el hmtl o podemos dejar sin contenedor padre. Ej: return(<h1>Lista de tareas</h1>)
+    <>
+      <Header />
+      <div className="d-flex main-container">
+        <Sidebar />
+        <div className="w-100 p-3">
+          
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="todo-list" element={<ToDoList />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+      </div>
 
-    <div className="p-4">
-      <Titulo/>
-      <Subtitulo/>
-      <Container>
-        <Row>
-            {/* Columna de formulario  */}
-          <Col xs={12} lg={6} className="bg-warning p-2 mb-2">
-            <FormTareas agregarNuevaTareaDesdeHijo={addNewTask}    />
-          </Col>
-          <Col xs={12} lg={6} className="bg-info p-2">
-            <TaskList listaTareas={taskList} deleteTaskAppJs={deleteTask} setTaskDone={setTaskDone} />
-          </Col>
-        </Row>
-      </Container>
-
+      <Footer />
       
-
-    </div>
+    </>
   );
 }
 
