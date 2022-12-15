@@ -1,6 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-
+const user = {
+  name: 'Pepito Gomez',
+  role: 'USER_ROLE'
+}
 export const Sidebar = () => {
   return (
     <>
@@ -22,6 +25,10 @@ export const Sidebar = () => {
 
           <NavLink to="/about" className={({isActive}) => isActive ? `list-group-item link-active` : 'list-group-item'}>
             Acerca de nosotros
+          </NavLink>
+
+          <NavLink to="/product-admin" className={({isActive}) => isActive ? `list-group-item link-active` : 'list-group-item'}>
+            Administrar Productos
           </NavLink>
 
 

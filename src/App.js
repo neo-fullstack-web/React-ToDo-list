@@ -11,10 +11,12 @@ import { Home } from "./pages/Home/Home";
 import { Contact } from "./pages/Contact/Contact";
 import { About } from "./pages/About/About";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { ProductAdmin } from "./pages/ProductAdmin/ProductAdmin";
+import { AdminRoute } from "./guard/AdminRoute/AdminRoute";
 
 function App() {
 
-  return (
+return (
 //Debe tener un div padre para que se pueda leer el hmtl o podemos dejar sin contenedor padre. Ej: return(<h1>Lista de tareas</h1>)
     <>
       <Header />
@@ -27,6 +29,14 @@ function App() {
             <Route path="todo-list" element={<ToDoList />} />
             <Route path="contact" element={<Contact />} />
             <Route path="about" element={<About />} />
+            <Route path="product-admin" 
+                   element={<AdminRoute>
+                              <ProductAdmin />
+                            </AdminRoute>} />
+            
+            
+            
+            
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
