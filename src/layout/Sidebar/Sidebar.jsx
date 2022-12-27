@@ -31,6 +31,10 @@ export const Sidebar = () => {
             Administrar Productos
           </NavLink>
 
+          <NavLink to="/login" className={({isActive}) => isActive ? `list-group-item link-active` : 'list-group-item'}>
+            Login
+          </NavLink>
+
 
       </ul>
     

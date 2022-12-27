@@ -13,6 +13,7 @@ import { About } from "./pages/About/About";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { ProductAdmin } from "./pages/ProductAdmin/ProductAdmin";
 import { AdminRoute } from "./guard/AdminRoute/AdminRoute";
+import { Login } from "./pages/Login/Login";
 
 function App() {
 
@@ -25,6 +26,7 @@ return (
         <div className="w-100 p-3">
           
           <Routes>
+            <Route path='login' element={ <Login/> } />
             <Route path="/" element={<Home />} />
             <Route path="todo-list" element={<ToDoList />} />
             <Route path="contact" element={<Contact />} />
