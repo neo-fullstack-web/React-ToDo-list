@@ -12,7 +12,7 @@ export const Login = () => {
         try {
             // const { email, password } = data;
 
-            const loginData = await axios.post(`http://localhost:3000/login`, data);
+            const loginData = await axios.post(`http://localhost:3200/login`, data);
 
             console.log(loginData.data)
             localStorage.setItem('token', JSON.stringify(loginData.data.token))
@@ -45,8 +45,10 @@ export const Login = () => {
             <Col xs={12} md={{ span: 6, offset: 3 }} xl={{ span: 4, offset: 4 }}>
                 
                 <form onSubmit={handleSubmit(miFnLogin)}>
-                    <input type="email" {...register("email", {required: true, maxLength: 30})}></input>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" {...register("email", {required: true, maxLength: 30})}></input>
                     {errors.email && <p>Error en el email</p>}
+                    <label htmlFor="password">Constraseña</label>
                     <input type="password" {...register("password", { required: true })}></input>
                     {errors.password?.required && <p>El password es obligatorio</p>}
                     <input type="submit" />

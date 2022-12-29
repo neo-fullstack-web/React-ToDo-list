@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import axios from 'axios';
+import { Pagination } from 'react-bootstrap';
 
-const URL = `http://localhost:3000`;
+const URL = `http://localhost:3200`;
 const token = JSON.parse(localStorage.getItem('token'))
 
 export const Home = () => {
 
   const [users, setUsers] = useState([]);
+  const [pages, setPages] = useState([]);
+  let active = 1;
   // const [usersFiltered, setUserFiltered] = useState([]);
 
   useEffect(() => {
@@ -15,17 +18,36 @@ export const Home = () => {
     // buscarUsuario('')
   }, [])
 
- async function obtenerUsuarios() {
+ async function obtenerUsuarios(page = 0) {
   try {
-    const usersDB = await axios.get(`${URL}/users`, {
+    active = page
+    const usersDB = await axios.get(`${URL}/users?page=${page}`, {
       headers: {
         authorization: token
       }
     });
+    const totalUsers = usersDB.data.total;
+    const totalPages = Math.ceil(totalUsers / 3);
     console.log(usersDB.data);
-    setUsers(usersDB.data)
+    
+    const pagesBtns = [];
+    for(let i = 0; i < totalPages; i++) {
+      pagesBtns.push(
+        <Pagination.Item key={i} active={i === active} onClick={() => obtenerUsuarios(i)}>
+          { i + 1 }
+        </Pagination.Item>
+      )
+    }
+    
+    setUsers(usersDB.data.users);
+    setPages(pagesBtns)
+
+
+
   } catch (error) {
     console.log(error.response)
+    alert(`Se necesita un token válido`)
+    window.location.href = '/login'
   }
 
     // fetch(`${URL}/users`)
@@ -77,6 +99,7 @@ export const Home = () => {
           )
         )
       }
+      <Pagination className='mt-3'>{pages}</Pagination>
     </div>
   )
 }
