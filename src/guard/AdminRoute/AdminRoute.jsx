@@ -1,11 +1,11 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-const user = {
-    name: 'Pepito Gomez',
-    role: 'ADMIN_ROLE'
-}
+import { useAuth } from '../../context/AuthContext'
+
+
 export const AdminRoute = ({children}) => {
+  const auth = useAuth();
   return (
-    user.role === 'ADMIN_ROLE' ? children : <Navigate to='/' replace />
+    auth.user.role === 'ADMIN_ROLE' ? children : <Navigate to='/' replace />
   )
 }

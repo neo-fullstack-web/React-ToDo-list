@@ -14,12 +14,13 @@ import { NotFound } from "./pages/NotFound/NotFound";
 import { ProductAdmin } from "./pages/ProductAdmin/ProductAdmin";
 import { AdminRoute } from "./guard/AdminRoute/AdminRoute";
 import { Login } from "./pages/Login/Login";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
 
 return (
 //Debe tener un div padre para que se pueda leer el hmtl o podemos dejar sin contenedor padre. Ej: return(<h1>Lista de tareas</h1>)
-    <>
+    <AuthProvider>
       <Header />
       <div className="d-flex main-container">
         <Sidebar />
@@ -46,7 +47,7 @@ return (
 
       <Footer />
       
-    </>
+    </AuthProvider>
   );
 }
 

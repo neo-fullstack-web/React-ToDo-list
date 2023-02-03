@@ -3,20 +3,16 @@ import axios from 'axios'
 import { useRef } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../context/AuthContext'
 
 export const Login = () => {
-
+    const auth = useAuth();
     const {register, handleSubmit, watch, formState: { errors }} = useForm();
 
     async function miFnLogin(data) {
         try {
-            // const { email, password } = data;
 
-            const loginData = await axios.post(`http://localhost:3200/login`, data);
-
-            console.log(loginData.data)
-            localStorage.setItem('token', JSON.stringify(loginData.data.token))
-            localStorage.setItem('user', JSON.stringify(loginData.data.user))
+           auth.login(data)
 
 
         } catch (error) {
@@ -29,15 +25,15 @@ export const Login = () => {
     }
 
     // // Manejo de data en el formulario con hook ref de react
-    // const emailInput = useRef(null);
-    // const passwordInput = useRef(null);
+    const emailInput = useRef(null);
+    const passwordInput = useRef(null);
 
-    // async function login(evt) {
-    //     evt.preventDefault()
-    //     console.log(`Login llamado`, 
-    //                 emailInput.current.value, 
-    //                 passwordInput.current.value)
-    // }
+    async function login(evt) {
+        evt.preventDefault();
+        console.log(`Login llamado`, 
+                    emailInput.current.value, 
+                    passwordInput.current.value)
+    }
 
   return (
     <div>
@@ -66,7 +62,7 @@ export const Login = () => {
                 
                 {
                 // *** Manejo de data en el formulario con hook ref de react
-                /* <Form onSubmit={login}>
+                 <Form onSubmit={login}>
                     <Form.Group className='mb-3'>
                         <Form.Label>Email</Form.Label>
                         <Form.Control ref={emailInput} name='email' type='email' placeholder='user@email.com'></Form.Control>
@@ -78,7 +74,7 @@ export const Login = () => {
                     <Button variant="primary" type="submit">
                         Ingresar
                     </Button>
-                </Form> */}
+                </Form>}
                 
                 
                 

@@ -4,15 +4,16 @@ import FormTareas from '../../components/FormTareas'
 import Subtitulo from '../../components/Subtitulo'
 import { TaskList } from '../../components/TaskList/TaskList'
 import Titulo from '../../components/Titulo'
+import { useAuth } from '../../context/AuthContext'
 
 const taskListConst = JSON.parse(localStorage.getItem('tasks')) || [];
 
 
 export const ToDoList = () => {
-
+  const auth = useAuth()
 
   const [taskList, setTaskList] = useState(taskListConst);
-
+  auth.login()
   function addNewTask(task) {
     const updList = taskList.map(t => t)
     updList.push(task);
@@ -37,6 +38,7 @@ export const ToDoList = () => {
 
   return (
     <div className="p-4">
+      {auth.user.name}
         <Titulo/>
         <Subtitulo/>
         <Container>

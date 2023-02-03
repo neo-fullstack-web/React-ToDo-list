@@ -2,16 +2,15 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import axios from 'axios';
 import { Pagination } from 'react-bootstrap';
+import { Carousel } from './Carousel/Carousel';
+import { useAuth } from '../../context/AuthContext';
 
-const URL = `http://localhost:3200`;
-const token = JSON.parse(localStorage.getItem('token'))
 
 export const Home = () => {
-
+  const auth = useAuth()
   const [users, setUsers] = useState([]);
   const [pages, setPages] = useState([]);
   let active = 1;
-  // const [usersFiltered, setUserFiltered] = useState([]);
 
   useEffect(() => {
     obtenerUsuarios();
@@ -19,11 +18,12 @@ export const Home = () => {
   }, [])
 
  async function obtenerUsuarios(page = 0) {
+  console.log(process.env.REACT_APP_URL)
   try {
     active = page
-    const usersDB = await axios.get(`${URL}/users?page=${page}`, {
+    const usersDB = await axios.get(`${process.env.REACT_APP_URL}/users?page=${page}`, {
       headers: {
-        authorization: token
+        authorization: auth.token
       }
     });
     const totalUsers = usersDB.data.total;
@@ -45,9 +45,9 @@ export const Home = () => {
 
 
   } catch (error) {
-    console.log(error.response)
-    alert(`Se necesita un token válido`)
-    window.location.href = '/login'
+    console.log(error)
+    // alert(`Se necesita un token válido`)
+    // window.location.href = '/login'
   }
 
     // fetch(`${URL}/users`)
@@ -61,7 +61,7 @@ export const Home = () => {
 
   function borrarUsuarioDesdeFront(id) {
     console.log(`Vamos a borrar el usuario con el ID: ${id}`);
-    axios.delete(`http://localhost:3000/users/${id}`).then(resp => {
+    axios.delete(`${process.env.REACT_APP_URL}/users/${id}`).then(resp => {
       
       console.log(resp)
       obtenerUsuarios()
@@ -100,6 +100,7 @@ export const Home = () => {
         )
       }
       <Pagination className='mt-3'>{pages}</Pagination>
+      <Carousel></Carousel>
     </div>
   )
 }
