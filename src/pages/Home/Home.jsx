@@ -18,6 +18,7 @@ export const Home = () => {
   }, [])
 
  async function obtenerUsuarios(page = 0) {
+
   console.log(process.env.REACT_APP_URL)
   try {
     active = page
@@ -94,7 +95,8 @@ export const Home = () => {
         users.map(usr => (
             <div key={usr._id}>
               {usr.name} | {usr.email}
-              <button onClick={() => borrarUsuarioDesdeFront(usr._id)}>DELETE</button>
+
+              {auth.user && <button onClick={() => borrarUsuarioDesdeFront(usr._id)}>DELETE</button>}
             </div>
           )
         )
