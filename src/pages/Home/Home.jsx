@@ -70,6 +70,7 @@ export const Home = () => {
     
   }
 
+  //*** Filtro de usuarios */
   // async function buscarUsuario(nombre) {
   //   try {
   //     console.log(`Valor del input:`,  nombre)
@@ -91,7 +92,7 @@ export const Home = () => {
         </Form.Group>
       </Form> */}
 
-      {
+     { 
         users.map(usr => (
             <div key={usr._id}>
               {usr.name} | {usr.email}
